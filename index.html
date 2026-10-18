@@ -546,7 +546,77 @@
         }
 
         /* ==========================================================================
-           11. FOOTER
+           11. MODAL POPUP STYLES
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            transform: scale(0.8);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .modal-message {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           12. FOOTER
            ========================================================================== */
         footer {
             padding: 3rem 0;
@@ -584,7 +654,7 @@
         }
 
         /* ==========================================================================
-           12. RESPONSIVE DESIGN
+           13. RESPONSIVE DESIGN
            ========================================================================== */
         @media (max-width: 900px) {
             .about-card {
@@ -962,7 +1032,7 @@
                 </div>
 
                 <div class="card">
-                    <!-- BACKGROUND SUBMISSION FORM WITH CAPTCHA DISABLED -->
+                    <!-- BACKGROUND SUBMISSION FORM -->
                     <form id="contact-form" onsubmit="handleFormSubmit(event)">
                         <input type="hidden" name="_captcha" value="false">
                         <div class="form-group">
@@ -978,12 +1048,21 @@
                             <textarea id="message" name="message" class="form-control" placeholder="Your message here..." required></textarea>
                         </div>
                         <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Send Message</button>
-                        <p id="form-status" style="margin-top: 1rem; font-size: 0.9rem; text-align: center; display: none;"></p>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- SUCCESS MODAL POPUP -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-box">
+            <div class="modal-icon">&#10003;</div>
+            <h3 class="modal-title">Message Sent!</h3>
+            <p class="modal-message">Thank you for reaching out! Your message has been sent successfully. I will get back to you as soon as possible.</p>
+            <button class="btn btn-primary" style="width: 100%;" onclick="closeModal()">Close</button>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -1020,18 +1099,32 @@
             });
         });
 
-        // Background Form Submission (AJAX - No Page Redirects or New Tabs)
+        // Modal Controls
+        function showModal() {
+            document.getElementById('success-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').classList.remove('active');
+        }
+
+        // Close modal when clicking dark overlay background
+        document.getElementById('success-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'success-modal') {
+                closeModal();
+            }
+        });
+
+        // Background Form Submission (AJAX)
         async function handleFormSubmit(event) {
             event.preventDefault();
             
             const form = event.target;
             const submitBtn = document.getElementById('submit-btn');
-            const statusText = document.getElementById('form-status');
 
             // Set sending state
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
-            statusText.style.display = 'none';
 
             const formData = new FormData(form);
 
@@ -1045,17 +1138,13 @@
                 });
 
                 if (response.ok) {
-                    statusText.style.color = '#38bdf8';
-                    statusText.textContent = 'Message sent successfully!';
-                    statusText.style.display = 'block';
+                    showModal(); // Trigger custom pop-up modal
                     form.reset(); // Clear input fields
                 } else {
-                    throw new Error('Form submission failed.');
+                    alert('Failed to send message. Please try again.');
                 }
             } catch (error) {
-                statusText.style.color = '#ef4444';
-                statusText.textContent = 'Failed to send message. Please try again later.';
-                statusText.style.display = 'block';
+                alert('An error occurred. Please try again later.');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
