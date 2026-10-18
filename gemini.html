@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Gabriel Soriano Mercado | Personal Portfolio</title>
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-dark: #0a0c10;
+            --bg-card: #121621;
+            --bg-card-hover: #1a2030;
+            --bg-nav: rgba(10, 12, 16, 0.85);
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --accent: #38bdf8;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #1f293d;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* ==========================================================================
+           2. REUSABLE COMPONENTS & LAYOUT
+           ========================================================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.75rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(79, 70, 229, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.4);
+            background-color: var(--bg-card-hover);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           3. NAVBAR
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--bg-nav);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 100px;
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+            background: radial-gradient(circle at 80% 20%, rgba(79, 70, 229, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-title {
+            font-size: Clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 650px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ==========================================================================
+           5. ABOUT SECTION
+           ========================================================================== */
+        .about-card {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        .about-info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .about-info-list li {
+            display: flex;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.5rem;
+        }
+
+        .about-info-list strong {
+            width: 120px;
+            color: var(--text-main);
+        }
+
+        .about-info-list span {
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+
+        /* ==========================================================================
+           6. SKILLS SECTION
+           ========================================================================== */
+        .skill-item {
+            margin-bottom: 1.25rem;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+
+        /* ==========================================================================
+           7. EXPERIENCE & EDUCATION & CERTIFICATIONS
+           ========================================================================== */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: calc(-2rem - 6px);
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           8. PROJECTS SECTION
+           ========================================================================== */
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .project-header {
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .project-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           9. SERVICES SECTION
+           ========================================================================== */
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            background: rgba(79, 70, 229, 0.15);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           10. CONTACT SECTION
+           ========================================================================== */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .contact-info-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-details p, .contact-details a {
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .contact-details a:hover {
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* ==========================================================================
+           11. FOOTER
+           ========================================================================== */
+        footer {
+            padding: 3rem 0;
+            background-color: #06080b;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-socials a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================================================
+           12. RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .about-card {
+                grid-template-columns: 1fr;
+            }
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--bg-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         NAVIGATION BAR
+         ========================================================================== -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <!-- EDIT HERE: BRAND LOGO -->
+            <a href="#home" class="logo">Mark<span>.</span></a>
+            
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==========================================================================
+         HOME / HERO SECTION
+         ========================================================================== -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="tag">Available for Projects & Opportunities</span>
+                </div>
+                <!-- EDIT HERE: HERO NAME & TITLE -->
+                <h1 class="hero-title">Hi, I'm Mark Gabriel Soriano Mercado</h1>
+                <p class="hero-subtitle">A passionate Student & Aspiring Developer based in Angeles, Pampanga. Focused on database queries, application logic, and building efficient solutions.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#projects" class="btn btn-outline">View Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABOUT SECTION
+         ========================================================================== -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About <span>Me</span></h2>
+                <p class="section-subtitle">A brief overview of who I am and what drives my work.</p>
+            </div>
+            
+            <div class="card about-card">
+                <div class="about-text">
+                    <!-- EDIT HERE: SHORT DESCRIPTION ABOUT YOURSELF -->
+                    <p>
+                        I am currently an Information Technology student with a strong passion for software development, database administration, and problem-solving. I enjoy turning complex data requirements into clean, workable database schemas and application components.
+                    </p>
+                    <p>
+                        My academic background has provided me with hands-on experience in executing structured SQL queries, designing local systems, and collaborating on academic group projects aimed at solving practical, real-world problems.
+                    </p>
+                </div>
+                <div class="about-info">
+                    <ul class="about-info-list">
+                        <!-- EDIT HERE: PERSONAL DETAILS -->
+                        <li><strong>Name:</strong> <span>Mark Gabriel Soriano Mercado</span></li>
+                        <li><strong>Title:</strong> <span>Student</span></li>
+                        <li><strong>Location:</strong> <span>Angeles, Pampanga</span></li>
+                        <li><strong>Email:</strong> <span>markharbor97@gmail.com</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SKILLS SECTION
+         ========================================================================== -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My <span>Skills</span></h2>
+                <p class="section-subtitle">Technical capabilities and toolsets I am proficient in.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Technical Capabilities</h3>
+                    
+                    <!-- EDIT HERE: SKILL ITEMS -->
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>SQL Database Querying</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Database Design & Normalization</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Application Logic & C#</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Core Competencies</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                        <!-- EDIT HERE: SKILL TAGS -->
+                        <span class="tag">SQL Server</span>
+                        <span class="tag">T-SQL</span>
+                        <span class="tag">Database Schemas</span>
+                        <span class="tag">C# Windows Forms</span>
+                        <span class="tag">Scripting & Automation</span>
+                        <span class="tag">Problem Solving</span>
+                        <span class="tag">Teamwork</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         EXPERIENCE SECTION
+         ========================================================================== -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My <span>Experience</span></h2>
+                <p class="section-subtitle">Hands-on involvement in academic and practical software development environments.</p>
+            </div>
+
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <div class="timeline">
+                    <!-- EDIT HERE: EXPERIENCE ENTRIES -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Academic / Current</div>
+                        <h3 class="timeline-title">School Projects Lead & Collaborator</h3>
+                        <div class="timeline-subtitle">University Coursework & Lab Assignments</div>
+                        <p class="timeline-desc">Designed, developed, and maintained relational database systems and desktop applications as part of IT coursework. Handled database modeling, written query optimizations, and user interface workflows.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Project-Based</div>
+                        <h3 class="timeline-title">Database Systems Developer</h3>
+                        <div class="timeline-subtitle">Academic Projects</div>
+                        <p class="timeline-desc">Structured tables into proper normal forms (1NF-3NF), implemented transaction safety blocks, and developed local system modules using custom query setups.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         PROJECTS SECTION
+         ========================================================================== -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured <span>Projects</span></h2>
+                <p class="section-subtitle">A selection of coursework, tools, and application designs I have built.</p>
+            </div>
+
+            <div class="grid-3">
+                <!-- EDIT HERE: PROJECT 1 -->
+                <div class="card project-card">
+                    <div>
+                        <div class="project-header">
+                            <h3 class="project-title">Database Management System</h3>
+                        </div>
+                        <p class="project-desc">A structured relational database project designed to support transaction processing, search filtering, and reporting routines.</p>
+                        <div class="project-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">SSMS</span>
+                            <span class="tag">Relational DB</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <!-- EDIT LINK OR LEAVE # -->
+                        <a href="#" target="_blank">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- EDIT HERE: PROJECT 2 -->
+                <div class="card project-card">
+                    <div>
+                        <div class="project-header">
+                            <h3 class="project-title">Queueing & Registration Module</h3>
+                        </div>
+                        <p class="project-desc">A desktop interface built to organize user requests, handle account registrations, and output query-backed entries.</p>
+                        <div class="project-tags">
+                            <span class="tag">C#</span>
+                            <span class="tag">WinForms</span>
+                            <span class="tag">SQL</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <!-- EDIT LINK OR LEAVE # -->
+                        <a href="#" target="_blank">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- EDIT HERE: PROJECT 3 -->
+                <div class="card project-card">
+                    <div>
+                        <div class="project-header">
+                            <h3 class="project-title">Task Notification Automation</h3>
+                        </div>
+                        <p class="project-desc">An automated script integration designed to sync schedule updates and post notifications to designated webhooks.</p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Webhooks</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <!-- EDIT LINK OR LEAVE # -->
+                        <a href="#" target="_blank">View Project &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         EDUCATION SECTION
+         ========================================================================== -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My <span>Education</span></h2>
+                <p class="section-subtitle">Academic qualification and ongoing learning journey.</p>
+            </div>
+
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <div class="timeline">
+                    <!-- EDIT HERE: EDUCATION ENTRIES -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Ongoing / Present</div>
+                        <h3 class="timeline-title">Bachelor of Science in Information Technology</h3>
+                        <div class="timeline-subtitle">Undergraduate Student</div>
+                        <p class="timeline-desc">Focused on Database Management Systems, Systems Integration, Software Engineering, and Computer Programming fundamentals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         CERTIFICATIONS SECTION
+         ========================================================================== -->
+    <section id="certifications">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Certifications <span>& Awards</span></h2>
+                <p class="section-subtitle">Trainings, completed workshops, and verified credentials.</p>
+            </div>
+
+            <div class="grid-2" style="max-width: 900px; margin: 0 auto;">
+                <!-- EDIT HERE: CERTIFICATION 1 -->
+                <div class="card">
+                    <div style="color: var(--accent); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.25rem;">Academic Credential</div>
+                    <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">SQL Database Querying Fundamentals</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Demonstrated competency in executing structured queries, joins, subqueries, and table normalization.</p>
+                </div>
+
+                <!-- EDIT HERE: CERTIFICATION 2 -->
+                <div class="card">
+                    <div style="color: var(--accent); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.25rem;">Workshop / Seminar</div>
+                    <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Information Technology Seminar Series</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Participated in tech workshops covering enterprise architecture, development workflows, and automation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SERVICES SECTION
+         ========================================================================== -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Services <span>I Offer</span></h2>
+                <p class="section-subtitle">Ways I can contribute to projects, small businesses, or team tasks.</p>
+            </div>
+
+            <div class="grid-3">
+                <!-- EDIT HERE: SERVICE 1 -->
+                <div class="card">
+                    <div class="service-icon">&#128451;</div>
+                    <h3 class="service-title">SQL Querying & DB Design</h3>
+                    <p class="service-desc">Writing optimized T-SQL scripts, setting up normalized database tables, and building relational schemas for applications.</p>
+                </div>
+
+                <!-- EDIT HERE: SERVICE 2 -->
+                <div class="card">
+                    <div class="service-icon">&#128187;</div>
+                    <h3 class="service-title">Desktop Application Logic</h3>
+                    <p class="service-desc">Assisting with form interface implementation, event handler configurations, and local data persistence setups.</p>
+                </div>
+
+                <!-- EDIT HERE: SERVICE 3 -->
+                <div class="card">
+                    <div class="service-icon">&#9881;</div>
+                    <h3 class="service-title">Scripting & Webhooks</h3>
+                    <p class="service-desc">Creating automated triggers, light command-line routines, and webhook integrations for schedule updates or alerts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         CONTACT SECTION
+         ========================================================================== -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In <span>Touch</span></h2>
+                <p class="section-subtitle">Have a question or want to work together? Feel free to reach out.</p>
+            </div>
+
+            <div class="contact-wrapper">
+                <div class="card">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1.5rem;">Contact Details</h3>
+
+                    <!-- EDIT HERE: CONTACT INFOS -->
+                    <div class="contact-info-card">
+                        <div class="contact-icon">&#9993;</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <a href="mailto:markharbor97@gmail.com">markharbor97@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="contact-icon">&#128205;</div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>Angeles, Pampanga, Philippines</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="contact-icon">&#128279;</div>
+                        <div class="contact-details">
+                            <h4>Social Networks</h4>
+                            <p>
+                                <!-- EDIT HERE: LINKEDIN AND GITHUB URLS -->
+                                <a href="#" target="_blank">LinkedIn</a> &bull; 
+                                <a href="#" target="_blank">GitHub</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" placeholder="Your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER
+         ========================================================================== -->
+    <footer>
+        <div class="container footer-content">
+            <div class="logo">Mark Gabriel Soriano Mercado<span>.</span></div>
+            <div class="footer-socials">
+                <!-- EDIT HERE: SOCIAL LINKS -->
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">GitHub</a>
+                <a href="mailto:markharbor97@gmail.com">Email</a>
+            </div>
+            <p class="footer-copy">&copy; <span id="year"></span> Mark Gabriel Soriano Mercado. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         VANILLA JAVASCRIPT
+         ========================================================================== -->
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle logic
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.innerHTML = navLinks.classList.contains('active') ? '&#10005;' : '&#9776;';
+        });
+
+        // Close mobile menu when clicking any nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.innerHTML = '&#9776;';
+            });
+        });
+
+        // Simple Form Submission Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Thank you, ${name}! Your message has been sent successfully.`);
+            document.getElementById('contact-form').reset();
+        }
+    </script>
+</body>
+</html>
