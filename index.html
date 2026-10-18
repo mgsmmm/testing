@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mark Gabriel Soriano Mercado | Personal Portfolio</title>
     <style>
-
-        /* this was made from gemini for learning purposes only */
         /* ==========================================================================
            1. CSS VARIABLES & RESET
            ========================================================================== */
@@ -964,8 +962,9 @@
                 </div>
 
                 <div class="card">
-                    <!-- BACKGROUND SUBMISSION FORM -->
+                    <!-- BACKGROUND SUBMISSION FORM WITH CAPTCHA DISABLED -->
                     <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                        <input type="hidden" name="_captcha" value="false">
                         <div class="form-group">
                             <label for="name">Your Name</label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
