@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mark Gabriel Soriano Mercado | Personal Portfolio</title>
     <style>
+        /* DISCLAIMER: this website was made in gemini for educational purposes only */
         /* ==========================================================================
            1. CSS VARIABLES & RESET
            ========================================================================== */
@@ -1032,9 +1033,13 @@
                 </div>
 
                 <div class="card">
-                    <!-- BACKGROUND SUBMISSION FORM -->
+                    <!-- BACKGROUND SUBMISSION FORM WITH HONEYPOT SPAM TRAP -->
                     <form id="contact-form" onsubmit="handleFormSubmit(event)">
                         <input type="hidden" name="_captcha" value="false">
+                        
+                        <!-- HONEYPOT FIELD (Hidden from humans, filled by spam bots) -->
+                        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
                         <div class="form-group">
                             <label for="name">Your Name</label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
